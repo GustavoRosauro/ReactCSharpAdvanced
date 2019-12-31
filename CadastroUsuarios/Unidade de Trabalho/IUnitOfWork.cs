@@ -8,5 +8,6 @@ namespace CadastroUsuarios.Unidade_de_Trabalho
     public interface IUnitOfWork
     {
         void InserirPessoa<T>(T obj);
+        IEnumerable<object> RetornaPessoas();
     }
 }

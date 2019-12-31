@@ -34,5 +34,10 @@ namespace CadastroUsuarios.Controllers
                 _unitOfWork.InserirPessoa(pessoaFisica);
             }
         }
+        [HttpGet]
+        public IEnumerable<object> RetornaPessoas()
+        {
+            return _unitOfWork.RetornaPessoas();
+        }
     }
 }
