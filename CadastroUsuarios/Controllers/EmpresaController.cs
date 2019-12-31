@@ -7,6 +7,7 @@ using CadastroUsuarios.Data.Models;
 using CadastroUsuarios.Unidade_de_Trabalho;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CadastroUsuarios.Controllers
 {
@@ -19,18 +20,18 @@ namespace CadastroUsuarios.Controllers
         {
             this._unitOfWork = unitOfWork;
         }
-        [HttpPost("[action]/pj")]
-        public void InserirPessoa<T>(bool pj, [FromBody] T obj)
+        [HttpPost("[action]/{pj}")]
+        public void InserirPessoa([FromRoute] bool pj, [FromBody] object obj)
         {
             if (pj == true)
             {
-                var pessoaJurdica = obj as PessoaJuridica;
-                _unitOfWork.InserirPessoa(obj);
+                var pessoaJurdica = JsonConvert.DeserializeObject<PessoaJuridica>(obj.ToString());
+                _unitOfWork.InserirPessoa(pessoaJurdica);
             }
             else
-            {
-                var pessoaFisica = obj as PessoaFisica;
-                _unitOfWork.InserirPessoa(obj);
+            {            
+                var pessoaFisica = JsonConvert.DeserializeObject<PessoaFisica>(obj.ToString());
+                _unitOfWork.InserirPessoa(pessoaFisica);
             }
         }
     }
