@@ -46,6 +46,10 @@ namespace CadastroUsuarios.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CPF")
+                        .IsUnique()
+                        .HasFilter("[CPF] IS NOT NULL");
+
                     b.ToTable("PessoaFisica");
                 });
 
@@ -76,6 +80,10 @@ namespace CadastroUsuarios.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CNPJ")
+                        .IsUnique()
+                        .HasFilter("[CNPJ] IS NOT NULL");
 
                     b.ToTable("PessoaJuridica");
                 });

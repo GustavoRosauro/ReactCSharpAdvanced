@@ -14,5 +14,16 @@ namespace CadastroUsuarios.Data
         public EmpresaDbContext(DbContextOptions<EmpresaDbContext> options)
             : base(options)
         { }
+        protected override void OnModelCreating(ModelBuilder model)
+        {
+            model.Entity<PessoaFisica>(entity =>
+            {
+                entity.HasIndex(e => e.CPF).IsUnique();
+            });
+            model.Entity<PessoaJuridica>(entity =>
+            {
+                entity.HasIndex(e => e.CNPJ).IsUnique();
+            });
+        }
     }
 }

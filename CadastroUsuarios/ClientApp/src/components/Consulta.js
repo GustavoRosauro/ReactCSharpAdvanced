@@ -15,10 +15,19 @@ export class Consulta extends Component {
                 this.setState({ usuarios: data });
             })
     }
+    removeUsuario(cpf) {
+        fetch(`api/Empresa/${cpf}`, {
+            method: 'DELETE'
+        })
+            .then(data => {
+                this.retornaUsuarios();
+                this.render();
+            })
+    }
     render() {
         return (
             <div>
-                <table className="table table-striped">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -28,17 +37,18 @@ export class Consulta extends Component {
                             <th>CPF/CPNJ</th>
                         </tr>
                     </thead>
-                    <tbody>
+                        <tbody>
                         {this.state.usuarios.map(usuario =>
-                            <tr key={usuario.id}>
-                                <td>{usuario.nome}</td>
-                                <td>{usuario.idade}</td>
-                                <td>{usuario.email}</td>
-                                <td>{usuario.endereco}</td>
+                            <tr className={usuario.cpf.length > 11?'pj':null} key={usuario.id}>
+                                    <td>{usuario.nome}</td>
+                                    <td>{usuario.idade}</td>
+                                    <td>{usuario.email}</td>
+                                    <td>{usuario.endereco}</td>
                                 <td>{usuario.cpf}</td>
-                            </tr>
-                        )}
-                    </tbody>
+                                <td className='btn btn-danger' onClick={this.removeUsuario.bind(this, usuario.cpf)}>Deletar</td>
+                                </tr>
+                            )}
+                        </tbody>
                 </table>
             </div >
         );

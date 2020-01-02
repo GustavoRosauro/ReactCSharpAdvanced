@@ -39,5 +39,17 @@ namespace CadastroUsuarios.Controllers
         {
             return _unitOfWork.RetornaPessoas();
         }
+        [HttpDelete("{cpf}")]
+        public void RemoverPessoa(string cpf)
+        {
+            object pessoa = new object();
+            if (cpf.Length < 12) {
+                pessoa = new PessoaFisica("", 0, "", "") { CPF = cpf };
+            }
+            else {
+                pessoa = new PessoaJuridica("", 0, "", "") { CNPJ = cpf };
+            }
+            _unitOfWork.RemoverPessoa(pessoa);
+        }
     }
 }
