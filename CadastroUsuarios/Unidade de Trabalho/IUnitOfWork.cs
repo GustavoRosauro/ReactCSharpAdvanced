@@ -10,5 +10,6 @@ namespace CadastroUsuarios.Unidade_de_Trabalho
         void InserirPessoa<T>(T obj);
         void RemoverPessoa<T>(T obj);
         IEnumerable<object> RetornaPessoas();
+        void AlterarPessoa<T>(T obj);
     }
 }
